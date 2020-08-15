@@ -8,6 +8,7 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 16 * 48;
         config.height = 16 * 43;
-        new LwjglApplication(new KNG(), config);
+        KNG kng = new KNG();
+        new LwjglApplication(kng, config);
     }
 }

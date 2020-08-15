@@ -2,12 +2,16 @@ package com.cosmicknockdown.kingsngoblins.screens
 
 import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
+import com.badlogic.gdx.Application
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
@@ -16,13 +20,15 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.*
-import com.cosmicknockdown.kingsngoblins.components.PositionComponent
-import com.cosmicknockdown.kingsngoblins.components.VelocityComponent
+import com.cosmicknockdown.kingsngoblins.KNG
+import com.cosmicknockdown.kingsngoblins.components.*
+import com.cosmicknockdown.kingsngoblins.systems.AnimationSystem
 import com.cosmicknockdown.kingsngoblins.systems.InputSystem
 import com.cosmicknockdown.kingsngoblins.systems.MovementSystem
+import com.cosmicknockdown.kingsngoblins.systems.RenderSystem
 import com.cosmicknockdown.kingsngoblins.utils.WorldBuilder
 
-class GameScreen: Screen {
+class GameScreen : Screen {
 
     private var renderer: OrthogonalTiledMapRenderer
     private var map: TiledMap
@@ -49,13 +55,19 @@ class GameScreen: Screen {
         val first = map.layers.get("character_spot").objects.first()
 
         val playerEntity = Entity()
-        playerEntity.add(PositionComponent(worldBuilder.buildPlayer(first as RectangleMapObject)))
-        playerEntity.add(VelocityComponent(Vector2(0f,0f)))
+        val body = worldBuilder.buildPlayer(first as RectangleMapObject)
+        playerEntity.add(PositionComponent(body))
+        playerEntity.add(VelocityComponent(Vector2(0f, 0f)))
+        playerEntity.add(TransformComponent(body.position.x, body.position.y))
+        val texture = (game as KNG).assetManager.get("textures/player/player_atlas_orange.png", Texture::class.java)
+        playerEntity.add(TextureComponent(TextureRegion(texture, 0, 6, 16, 16)))
 
         engine = Engine()
         engine.addEntity(playerEntity)
         engine.addSystem(MovementSystem())
         engine.addSystem(InputSystem())
+        engine.addSystem(AnimationSystem())
+        engine.addSystem(RenderSystem(batch))
     }
 
     override fun hide() {
@@ -68,13 +80,13 @@ class GameScreen: Screen {
     }
 
     override fun render(delta: Float) {
-        Gdx.gl.glClearColor(28f/255f, 17f/255f, 23f/255f, 1.0f)
+        Gdx.gl.glClearColor(28f / 255f, 17f / 255f, 23f / 255f, 1.0f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         renderer.setView(camera)
         renderer.render()
         batch.projectionMatrix = camera.combined
         engine.update(delta)
-        world.step(1/60f, 8, 3)
+        world.step(1 / 60f, 8, 3)
         box2DDebugRenderer.render(world, camera.combined)
     }
 

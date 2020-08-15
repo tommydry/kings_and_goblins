@@ -26,7 +26,7 @@ class MenuScreen : Screen {
         val extendViewport = ExtendViewport(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
         stage = Stage(extendViewport)
         Gdx.input.inputProcessor = stage
-        background = Sprite(Texture(Gdx.files.internal("images/background.png")))
+        background = Sprite(game.assetManager.get<Texture>("textures/menu/menu_bg.png"))
         VisUI.load(VisUI.SkinScale.X1)
         startButton = VisTextButton("TAP", object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
