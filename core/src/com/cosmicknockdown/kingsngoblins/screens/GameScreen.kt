@@ -60,6 +60,7 @@ class GameScreen : Screen {
         playerEntity.add(VelocityComponent(Vector2(0f, 0f)))
         playerEntity.add(TransformComponent(body.position.x, body.position.y))
         val texture = (game as KNG).assetManager.get("textures/player/player_atlas_orange.png", Texture::class.java)
+        //TODO: Remove top space from player_atlas_*.png (have to use 6px space from top)
         playerEntity.add(TextureComponent(TextureRegion(texture, 0, 6, 16, 16)))
 
         engine = Engine()

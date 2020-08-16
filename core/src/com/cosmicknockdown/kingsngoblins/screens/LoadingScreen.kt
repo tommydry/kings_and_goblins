@@ -57,8 +57,8 @@ class LoadingScreen(game: Game) : Screen {
             }
             progressLabel.setText("Progress\n${(assetManager.progress * 100).toInt()}")
         } else {
-            if ((System.currentTimeMillis() - readyTime) > 2000) {
-                game.state = game.menu
+            if ((System.currentTimeMillis() - readyTime) > 1000) {
+                game.showGameScreen()
             }
         }
 

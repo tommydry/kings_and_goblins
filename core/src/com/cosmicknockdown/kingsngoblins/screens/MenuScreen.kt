@@ -28,9 +28,9 @@ class MenuScreen : Screen {
         Gdx.input.inputProcessor = stage
         background = Sprite(game.assetManager.get<Texture>("textures/menu/menu_bg.png"))
         VisUI.load(VisUI.SkinScale.X1)
-        startButton = VisTextButton("TAP", object : ChangeListener() {
+        startButton = VisTextButton("StartGame", object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
-                game.state = game.game
+                game.showGameScreen()
             }
         })
         startButton.width = stage.width * 0.3f
@@ -38,6 +38,7 @@ class MenuScreen : Screen {
         startButton.label.style.fontColor = Color.GRAY
         startButton.color = Color.LIGHT_GRAY
         startButton.setPosition(stage.width * 0.5f, stage.height * 0.5f, Align.center)
+
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/bg.wav"))
         backgroundMusic.setLooping(true)
     }

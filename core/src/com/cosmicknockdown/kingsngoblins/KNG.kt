@@ -2,6 +2,7 @@ package com.cosmicknockdown.kingsngoblins
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -13,18 +14,20 @@ import java.util.*
 import javax.xml.soap.Text
 
 class KNG() : Game() {
-    val menu: Int = 0
-    val game: Int = 1
-    val loading: Int = 2
+    private val menu: Int = 0
+    private val game: Int = 1
+    private val loading: Int = 2
 
     var assetManager: AssetManager = AssetManager()
     val textureAssets = arrayOf("textures/player/player_atlas_orange.png", "textures/menu/menu_bg.png")
     val bitmapFontAssets = arrayOf("fonts/main.fnt")
+    val soundAssets = arrayOf("sounds/bg.wav")
 
     init {
         Texture::class.java
         loadAsset(textureAssets, Texture::class.java)
         loadAsset(bitmapFontAssets, BitmapFont::class.java)
+        loadAsset(soundAssets, Music::class.java)
     }
 
     fun loadAsset(arrayOfAssets: Array<String>, assetClass: Class<*>) {
@@ -33,7 +36,7 @@ class KNG() : Game() {
         }
     }
 
-    var state: Int = -1
+    private var state: Int = -1
         set(value) {
             field = value
             if (screen != null)
@@ -44,6 +47,18 @@ class KNG() : Game() {
                 loading -> setScreen(LoadingScreen(this))
             }
         }
+
+    fun showLoadingScreen() {
+        state = loading
+    }
+
+    fun showMenuScreen() {
+        state = menu
+    }
+
+    fun showGameScreen() {
+        state = game
+    }
 
     override fun create() {
         state = loading
