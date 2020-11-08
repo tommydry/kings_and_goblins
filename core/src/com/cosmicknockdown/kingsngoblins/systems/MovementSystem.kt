@@ -36,7 +36,7 @@ class MovementSystem : EntitySystem() {
 //                state = if (velocityComponent.direction.x > 0) StateComponent.MOVE_RIGHT else  StateComponent.MOVE_LEFT
             }
 
-            positionComponent.body.setLinearVelocity(velocityComponent.direction.x * 30, velocityComponent.direction.y * 30)
+            positionComponent.body.setLinearVelocity(velocityComponent.direction.x * 15, velocityComponent.direction.y * 15)
 
             transformComponent.pos.set(positionComponent.body.position)
 
