@@ -2,6 +2,7 @@ package com.cosmicknockdown.kingsngoblins.systems
 
 import com.badlogic.ashley.core.*
 import com.badlogic.ashley.utils.ImmutableArray
+import com.badlogic.gdx.ai.steer.Steerable
 import com.cosmicknockdown.kingsngoblins.components.PositionComponent
 import com.cosmicknockdown.kingsngoblins.components.StateComponent
 import com.cosmicknockdown.kingsngoblins.components.TransformComponent
@@ -26,7 +27,13 @@ class MovementSystem : EntitySystem() {
             val stateComponent = sm.get(it)
 
             with(stateComponent) {
-                state = if (velocityComponent.direction.x > 0) StateComponent.MOVE_RIGHT else StateComponent.MOVE_LEFT
+                val xCoordinate = velocityComponent.direction.x
+                state = when {
+                    xCoordinate > 0 -> StateComponent.MOVE_RIGHT
+                    xCoordinate < 0 -> StateComponent.MOVE_LEFT
+                    else -> StateComponent.IDLE
+                }
+//                state = if (velocityComponent.direction.x > 0) StateComponent.MOVE_RIGHT else  StateComponent.MOVE_LEFT
             }
 
             positionComponent.body.setLinearVelocity(velocityComponent.direction.x * 30, velocityComponent.direction.y * 30)
