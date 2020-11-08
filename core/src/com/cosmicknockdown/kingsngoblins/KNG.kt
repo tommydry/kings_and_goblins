@@ -4,24 +4,30 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.utils.IntMap
 import com.badlogic.gdx.utils.Timer
+import com.cosmicknockdown.kingsngoblins.components.StateComponent
 import com.cosmicknockdown.kingsngoblins.screens.GameScreen
 import com.cosmicknockdown.kingsngoblins.screens.LoadingScreen
 import com.cosmicknockdown.kingsngoblins.screens.MenuScreen
+import com.cosmicknockdown.kingsngoblins.screens.TestScreen
 import java.util.*
+import javax.swing.plaf.nimbus.State
 import javax.xml.soap.Text
 
-class KNG() : Game() {
+class KNG : Game() {
     private val menu: Int = 0
     private val game: Int = 1
     private val loading: Int = 2
 
     var assetManager: AssetManager = AssetManager()
-    val textureAssets = arrayOf("textures/player/player_atlas_orange.png", "textures/menu/menu_bg.png")
-    val bitmapFontAssets = arrayOf("fonts/main.fnt")
-    val soundAssets = arrayOf("sounds/bg.wav")
+    private val textureAssets = arrayOf(PLAYER_ATLAS_PATH, MENU_BG_PATH)
+    private val bitmapFontAssets = arrayOf(FONTS_PATH)
+    private val soundAssets = arrayOf(BG_SOUND_PATH)
 
     init {
         Texture::class.java
@@ -30,7 +36,7 @@ class KNG() : Game() {
         loadAsset(soundAssets, Music::class.java)
     }
 
-    fun loadAsset(arrayOfAssets: Array<String>, assetClass: Class<*>) {
+    private fun loadAsset(arrayOfAssets: Array<String>, assetClass: Class<*>) {
         arrayOfAssets.forEach {
             assetManager.load(it, assetClass)
         }
@@ -44,6 +50,7 @@ class KNG() : Game() {
             when (state) {
                 menu -> setScreen(MenuScreen(this))
                 game -> setScreen(GameScreen(this))
+//                game -> setScreen(TestScreen(this))
                 loading -> setScreen(LoadingScreen(this))
             }
         }
@@ -64,6 +71,20 @@ class KNG() : Game() {
         state = loading
     }
 
+    fun getMainCharacterAnimation(): IntMap<Animation<TextureRegion>> {
+        return IntMap<Animation<TextureRegion>>().apply {
+            val playerTexture = assetManager.get("textures/player/player_atlas_orange.png", Texture::class.java)
+            val split = TextureRegion.split(playerTexture, playerTexture.width / 7, playerTexture.height / 4)
+
+            val idleAnimation = Animation<TextureRegion>(0.075f, com.badlogic.gdx.utils.Array(arrayOf(split[1][0], split[1][1], split[1][2], split[1][3])))
+            put(StateComponent.IDLE, idleAnimation)
+
+            val movementAnimation = Animation<TextureRegion>(0.075f, com.badlogic.gdx.utils.Array(arrayOf(split[2][0], split[2][1], split[2][2], split[2][3])))
+            put(StateComponent.MOVE_RIGHT, movementAnimation)
+            put(StateComponent.MOVE_LEFT, movementAnimation)
+        }
+    }
+
     companion object {
         const val PPM: Float = 16f
 
@@ -71,6 +92,15 @@ class KNG() : Game() {
         const val WALL_BIT: Short = 1
         const val PLAYER_BIT: Short = 1 shl 1
         const val ENEMY_BIT: Short = 1 shl 2
+
+        const val PLAYER_ATLAS_PATH = "textures/player/player_atlas_orange.png"
+        const val MENU_BG_PATH = "textures/menu/menu_bg.png"
+        const val FONTS_PATH = "fonts/main.fnt"
+        const val BG_SOUND_PATH = "sounds/bg.wav"
+
+        const val FIRST_LEVEL_MAP_PATH = "maps/dungeon.tmx"
+        const val FIRST_LEVEL_CHARACTER_SPOT_LAYER_NAME = "character_spot"
+
     }
 
 }

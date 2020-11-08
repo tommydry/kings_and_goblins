@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
+import kotlin.math.abs
 
 class AStarPathFinding(var map: AStarMap) {
     lateinit var pathfinder: PathFinder<Node>
@@ -17,20 +18,13 @@ class AStarPathFinding(var map: AStarMap) {
         connectionPath = DefaultGraphPath<Connection<Node>>()
         heuristic = object : Heuristic<Node> {
             override fun estimate(node: Node?, endNode: Node?): Float {
-                return (Math.abs(endNode!!.x - node!!.x) + Math.abs(endNode!!.y - node!!.y)).toFloat()
+                return (abs(endNode!!.x - node!!.x) + abs(endNode!!.y - node!!.y)).toFloat()
             }
         }
     }
 
     companion object {
-        var NEIGHBORHOOD = arrayOf<kotlin.Array<Int>>()
-
-        init {
-            NEIGHBORHOOD += arrayOf(-1, 0)
-            NEIGHBORHOOD += arrayOf(0, -1)
-            NEIGHBORHOOD += arrayOf(0, 1)
-            NEIGHBORHOOD += arrayOf(1, 0)
-        }
+        val NEIGHBORHOOD = arrayOf(arrayOf(-1, 0), arrayOf(0, -1), arrayOf(0, 1), arrayOf(1, 0))
     }
 
     fun createGraph(): MyGraph {

@@ -17,6 +17,7 @@ class AnimationSystem : IteratingSystem(Family.all(TextureComponent::class.java,
         val tex = textureM.get(entity)
         val anim = animationM.get(entity)
         val state = stateM.get(entity)
-        tex.region.setRegion(anim.animations.get(state.state).getKeyFrame(state.stateTime))
+        println("state is ${state.state}")
+        tex.region.setRegion(anim.getKeyFrame(state.state))
     }
 }
