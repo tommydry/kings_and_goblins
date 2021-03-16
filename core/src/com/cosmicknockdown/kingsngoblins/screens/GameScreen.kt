@@ -39,7 +39,7 @@ class GameScreen
 
     init {
         //TODO MOVE ALL LITERALS TO CONSTANTS
-        viewport = ScalingViewport(Scaling.fit, 35f, 33f, camera)
+        viewport = ScalingViewport(Scaling.fill, 45f, 43f, camera)
 
         map = TmxMapLoader().load(KNG.FIRST_LEVEL_MAP_PATH)
 
@@ -92,6 +92,7 @@ class GameScreen
 
         engine.update(delta)
         world.step(1 / 60f, 8, 3)
+
         box2DDebugRenderer.render(world, camera.combined)
     }
 

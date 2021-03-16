@@ -8,7 +8,14 @@ import com.cosmicknockdown.kingsngoblins.components.AnimationComponent
 import com.cosmicknockdown.kingsngoblins.components.StateComponent
 import com.cosmicknockdown.kingsngoblins.components.TextureComponent
 
-class AnimationSystem : IteratingSystem(Family.all(TextureComponent::class.java, AnimationComponent::class.java, StateComponent::class.java).get()) {
+class AnimationSystem : IteratingSystem(
+    Family.all(
+        TextureComponent::class.java,
+        AnimationComponent::class.java,
+        StateComponent::class.java
+    ).get()
+) {
+
     val textureM: ComponentMapper<TextureComponent> = ComponentMapper.getFor(TextureComponent::class.java)
     val animationM: ComponentMapper<AnimationComponent> = ComponentMapper.getFor(AnimationComponent::class.java)
     val stateM: ComponentMapper<StateComponent> = ComponentMapper.getFor(StateComponent::class.java)
@@ -17,7 +24,7 @@ class AnimationSystem : IteratingSystem(Family.all(TextureComponent::class.java,
         val tex = textureM.get(entity)
         val anim = animationM.get(entity)
         val state = stateM.get(entity)
-        println("state is ${state.state}")
         tex.region.setRegion(anim.getKeyFrame(state.state))
     }
+
 }

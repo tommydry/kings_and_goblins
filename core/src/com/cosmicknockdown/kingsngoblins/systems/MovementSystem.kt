@@ -31,8 +31,12 @@ class MovementSystem : EntitySystem() {
                 state = when {
                     xCoordinate > 0 -> StateComponent.MOVE_RIGHT
                     xCoordinate < 0 -> StateComponent.MOVE_LEFT
+                    state == StateComponent.MOVE_RIGHT -> StateComponent.MOVE_RIGHT
+                    state == StateComponent.MOVE_LEFT -> StateComponent.MOVE_LEFT
                     else -> StateComponent.IDLE
                 }
+
+
 //                state = if (velocityComponent.direction.x > 0) StateComponent.MOVE_RIGHT else  StateComponent.MOVE_LEFT
             }
 

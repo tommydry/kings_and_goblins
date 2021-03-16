@@ -17,7 +17,7 @@ class InputSystem : EntitySystem() {
     }
 
     override fun update(deltaTime: Float) {
-        entities!!.forEach {
+        entities?.forEach {
             val velocityComponent = vm.get(it)
             velocityComponent.apply {
                 direction.y = if (Gdx.input.isKeyPressed(Input.Keys.W)) 1f else if (Gdx.input.isKeyPressed(Input.Keys.S)) -1f else 0f
