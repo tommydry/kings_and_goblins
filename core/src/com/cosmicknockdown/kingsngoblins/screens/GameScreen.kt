@@ -93,7 +93,7 @@ class GameScreen
         engine.update(delta)
         world.step(1 / 60f, 8, 3)
 
-        box2DDebugRenderer.render(world, camera.combined)
+//        box2DDebugRenderer.render(world, camera.combined)
     }
 
     override fun pause() {

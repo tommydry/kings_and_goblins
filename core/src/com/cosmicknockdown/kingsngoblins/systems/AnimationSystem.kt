@@ -24,7 +24,15 @@ class AnimationSystem : IteratingSystem(
         val tex = textureM.get(entity)
         val anim = animationM.get(entity)
         val state = stateM.get(entity)
-        tex.region.setRegion(anim.getKeyFrame(state.state))
+        val textureRegion = anim.getKeyFrame(state.state)
+
+        if ((state.state == StateComponent.MOVE_LEFT || state.state == StateComponent.LEFT) && !textureRegion.isFlipX)
+            textureRegion.flip(true, false)
+
+        if ((state.state == StateComponent.MOVE_RIGHT || state.state == StateComponent.RIGHT) && textureRegion.isFlipX)
+            textureRegion.flip(true, false)
+
+        tex.region.setRegion(textureRegion)
     }
 
 }
