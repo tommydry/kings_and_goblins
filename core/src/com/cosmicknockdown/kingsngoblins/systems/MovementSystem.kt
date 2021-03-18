@@ -6,6 +6,7 @@ import com.cosmicknockdown.kingsngoblins.components.PositionComponent
 import com.cosmicknockdown.kingsngoblins.components.StateComponent
 import com.cosmicknockdown.kingsngoblins.components.TransformComponent
 import com.cosmicknockdown.kingsngoblins.components.VelocityComponent
+import javax.swing.plaf.nimbus.State
 
 class MovementSystem : EntitySystem() {
     var entities: ImmutableArray<Entity>? = null
@@ -15,7 +16,13 @@ class MovementSystem : EntitySystem() {
     var sm: ComponentMapper<StateComponent> = ComponentMapper.getFor(StateComponent::class.java)
 
     override fun addedToEngine(engine: Engine) {
-        entities = engine.getEntitiesFor(Family.all(PositionComponent::class.java, VelocityComponent::class.java, TransformComponent::class.java).get())
+        entities = engine.getEntitiesFor(
+            Family.all(
+                PositionComponent::class.java,
+                VelocityComponent::class.java,
+                TransformComponent::class.java
+            ).get()
+        )
     }
 
     override fun update(deltaTime: Float) {
@@ -27,9 +34,19 @@ class MovementSystem : EntitySystem() {
 
             with(stateComponent) {
                 val xVelocity = velocityComponent.direction.x
+                val yVelocity = velocityComponent.direction.y
                 state = when {
                     xVelocity > 0 -> StateComponent.MOVE_RIGHT
                     xVelocity < 0 -> StateComponent.MOVE_LEFT
+                    yVelocity > 0 || yVelocity < 0 -> {
+                        if (state in listOf<Int>(StateComponent.MOVE_RIGHT, StateComponent.RIGHT)) {
+                            StateComponent.MOVE_RIGHT
+                        } else if (state in listOf<Int>(StateComponent.MOVE_LEFT, StateComponent.LEFT)) {
+                            StateComponent.MOVE_LEFT
+                        } else {
+                            state
+                        }
+                    }
                     state == StateComponent.MOVE_RIGHT -> StateComponent.RIGHT
                     state == StateComponent.MOVE_LEFT -> StateComponent.LEFT
                     else -> state

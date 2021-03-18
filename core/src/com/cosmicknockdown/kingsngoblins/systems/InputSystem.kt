@@ -24,5 +24,6 @@ class InputSystem : EntitySystem() {
                 direction.x = if (Gdx.input.isKeyPressed(Input.Keys.D)) 1f else if (Gdx.input.isKeyPressed(Input.Keys.A)) -1f else 0f
             }
         }
+
     }
 }
