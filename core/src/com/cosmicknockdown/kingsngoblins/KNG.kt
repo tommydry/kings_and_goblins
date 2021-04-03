@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.IntMap
 import com.cosmicknockdown.kingsngoblins.components.StateComponent
 import com.cosmicknockdown.kingsngoblins.screens.GameScreen
@@ -29,6 +30,7 @@ class KNG : Game() {
         loadAsset(textureAssets, Texture::class.java)
         loadAsset(bitmapFontAssets, BitmapFont::class.java)
         loadAsset(soundAssets, Music::class.java)
+        loadAsset(arrayOf("uiskin.json"), Skin::class.java)
     }
 
     private fun loadAsset(arrayOfAssets: Array<String>, assetClass: Class<*>) {
@@ -84,6 +86,9 @@ class KNG : Game() {
 
     companion object {
         const val PPM: Float = 16f
+
+        const val GAME_WIDTH_IN_TILES = 45f
+        const val GAME_HEIGHT_IN_TILES = 43f
 
         const val NOTHING_BIT: Short = 0
         const val WALL_BIT: Short = 1

@@ -16,9 +16,12 @@ class AnimationSystem : IteratingSystem(
     ).get()
 ) {
 
-    val textureM: ComponentMapper<TextureComponent> = ComponentMapper.getFor(TextureComponent::class.java)
-    val animationM: ComponentMapper<AnimationComponent> = ComponentMapper.getFor(AnimationComponent::class.java)
-    val stateM: ComponentMapper<StateComponent> = ComponentMapper.getFor(StateComponent::class.java)
+    private val textureM: ComponentMapper<TextureComponent> =
+        ComponentMapper.getFor(TextureComponent::class.java)
+    private val animationM: ComponentMapper<AnimationComponent> =
+        ComponentMapper.getFor(AnimationComponent::class.java)
+    private val stateM: ComponentMapper<StateComponent> =
+        ComponentMapper.getFor(StateComponent::class.java)
 
     override fun processEntity(entity: Entity?, deltaTime: Float) {
         val tex = textureM.get(entity)

@@ -26,7 +26,7 @@ class MovementSystem : EntitySystem() {
     }
 
     override fun update(deltaTime: Float) {
-        entities!!.forEach {
+        entities?.forEach {
             val velocityComponent = vm.get(it)
             val positionComponent = pm.get(it)
             val transformComponent = tm.get(it)
