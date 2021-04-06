@@ -33,7 +33,6 @@ import com.cosmicknockdown.kingsngoblins.components.*
 import com.cosmicknockdown.kingsngoblins.systems.*
 import com.cosmicknockdown.kingsngoblins.utils.WorldBuilder
 
-const val text = "Of course Katlin!!!"
 class GameScreen
 (game: KNG) : Screen {
 
@@ -70,7 +69,6 @@ class GameScreen
         val freeTypeFontParameter = FreeTypeFontGenerator.FreeTypeFontParameter().apply {
             size = 24
             color = Color.ORANGE
-            borderWidth = 1f
         }
         bitmapFont = freeTypeFontGenerator.generateFont(freeTypeFontParameter)
         freeTypeFontGenerator.dispose()
@@ -80,16 +78,11 @@ class GameScreen
         labelStyle.fontColor = Color.ORANGE
         labelStyle.font.setUseIntegerPositions(false)
 
-        label = Label(text, labelStyle)
+        label = Label("", labelStyle)
 
         label.setWrap(true)
         label.setAlignment(Align.center)
         label.setSize(4f, 2f)
-
-        while (label.prefHeight > label.height) {
-            label.fontScaleX = label.fontScaleX * 0.75f
-            label.fontScaleY = label.fontScaleY * 0.75f
-        }
 
         val playerEntity = createPlayer(worldBuilder, game)
 
@@ -100,7 +93,7 @@ class GameScreen
             addSystem(MovementSystem())
             addSystem(InputSystem())
             addSystem(RenderSystem(batch))
-            addSystem(RenderBubbleSpeechSystem(label, stage, camera, viewport, renderer))
+            addSystem(RenderBubbleSpeechSystem(label))
         }
 
         stage.addActor(label)
