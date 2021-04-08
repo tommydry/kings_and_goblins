@@ -36,6 +36,15 @@ class WorldBuilder {
         })
     }
 
+    fun buildTreasure(mapObject: RectangleMapObject): Body {
+        val rectangle = mapObject.rectangle
+        correctRectangle(rectangle)
+        return createRectangleBody(rectangle, BodyDef.BodyType.StaticBody, Filter().apply {
+            categoryBits = KNG.STUF_BIT
+            maskBits = (KNG.WALL_BIT + KNG.ENEMY_BIT + KNG.PLAYER_BIT).toShort()
+        })
+    }
+
     private fun createRectangleBody(rectangle: Rectangle, bodyType: BodyDef.BodyType, fixtureDefFilter: Filter): Body {
         var bodyDef = BodyDef()
         bodyDef.apply {

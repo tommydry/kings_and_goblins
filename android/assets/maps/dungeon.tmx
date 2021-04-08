@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="45" height="43" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="40">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="45" height="43" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="41">
  <tileset firstgid="1" name="0x72_16x16DungeonTileset_walls.v1" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="dungeon.png" width="256" height="256"/>
  </tileset>
@@ -50,6 +50,9 @@
 130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130
 </data>
  </layer>
+ <objectgroup id="7" name="test_poi">
+  <object id="40" x="368" y="206.667" width="17.3333" height="16"/>
+ </objectgroup>
  <layer id="2" name="bg2" width="45" height="43">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -122,7 +125,7 @@
   <object id="30" x="60" y="299.5" width="36" height="132"/>
   <object id="31" x="127.5" y="299" width="53" height="133.5"/>
   <object id="32" x="176.5" y="268.5" width="111" height="84"/>
-  <object id="33" x="360" y="264.5"/>
+  <object id="33" x="373.667" y="216.167"/>
   <object id="34" x="357.5" y="264"/>
   <object id="36" x="351" y="256.5" width="17.5" height="15"/>
  </objectgroup>

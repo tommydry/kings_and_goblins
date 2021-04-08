@@ -21,7 +21,7 @@ class KNG : Game() {
     private val loading: Int = 2
 
     var assetManager: AssetManager = AssetManager()
-    private val textureAssets = arrayOf(PLAYER_ATLAS_PATH, MENU_BG_PATH)
+    private val textureAssets = arrayOf(PLAYER_ATLAS_PATH, MENU_BG_PATH, TEMP_ATLAS_PATH)
     private val bitmapFontAssets = arrayOf(FONTS_PATH)
     private val soundAssets = arrayOf(BG_SOUND_PATH)
 
@@ -84,6 +84,13 @@ class KNG : Game() {
         }
     }
 
+    fun getTreasureTexture(): TextureRegion {
+        val tempTexture = assetManager.get(TEMP_ATLAS_PATH, Texture::class.java)
+        val split = TextureRegion.split(tempTexture, tempTexture.width / 8, tempTexture.height / 12)
+        val textureRegion = split[6][0]
+        return textureRegion
+    }
+
     companion object {
         const val PPM: Float = 16f
 
@@ -94,14 +101,17 @@ class KNG : Game() {
         const val WALL_BIT: Short = 1
         const val PLAYER_BIT: Short = 1 shl 1
         const val ENEMY_BIT: Short = 1 shl 2
+        const val STUF_BIT: Short = 1 shl 3
 
         const val PLAYER_ATLAS_PATH = "textures/player/player_atlas_orange.png"
+        const val TEMP_ATLAS_PATH = "textures/temp/doss.png"
         const val MENU_BG_PATH = "textures/menu/menu_bg.png"
         const val FONTS_PATH = "fonts/main.fnt"
         const val BG_SOUND_PATH = "sounds/bg.wav"
 
         const val FIRST_LEVEL_MAP_PATH = "maps/dungeon.tmx"
         const val FIRST_LEVEL_CHARACTER_SPOT_LAYER_NAME = "character_spot"
+        const val FIRST_LEVEL_POI_LAYER_NAME = "test_poi"
 
     }
 

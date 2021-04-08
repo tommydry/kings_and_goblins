@@ -85,9 +85,11 @@ class GameScreen
         label.setSize(4f, 2f)
 
         val playerEntity = createPlayer(worldBuilder, game)
+        val treasureEntity = createTreasure(worldBuilder, game)
 
         engine = Engine().apply {
             addEntity(playerEntity)
+            addEntity(treasureEntity)
 
             addSystem(AnimationSystem())
             addSystem(MovementSystem())
@@ -118,6 +120,21 @@ class GameScreen
         }
     }
 
+    private fun createTreasure(
+        worldBuilder: WorldBuilder,
+        game: KNG
+    ): Entity {
+        val treasureSpot = map.layers.get(KNG.FIRST_LEVEL_POI_LAYER_NAME).objects.first()
+        val treasureBody = worldBuilder.buildTreasure(treasureSpot as RectangleMapObject)
+//        val treasureTexture = game.getTreasureTexture()
+        val playerTexture = game.assetManager.get(KNG.PLAYER_ATLAS_PATH, Texture::class.java)
+        return Entity().apply {
+            add(TransformComponent(0f, 0f))
+            add(PositionComponent(treasureBody))
+            add(TextureComponent(TextureRegion(playerTexture, 0, 6, 16, 16)))
+        }
+    }
+
     override fun hide() {
         TODO("Not yet implemented")
     }
@@ -140,7 +157,7 @@ class GameScreen
         stage.act(delta)
         stage.draw()
 
-//        box2DDebugRenderer.render(world, camera.combined)
+        box2DDebugRenderer.render(world, camera.combined)
     }
 
     override fun pause() {

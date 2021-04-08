@@ -51,6 +51,8 @@ class RenderBubbleSpeechSystem(
         label.setPosition(pos.x, pos.y)
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             label.setText(bubbleSpeechComponent.getRandomStatement())
+            label.fontScaleX = 1f
+            label.fontScaleY = 1f
             updateLabelHeight()
             lastTimeBubbleSpeechShowed = System.currentTimeMillis()
             label.isVisible = true
