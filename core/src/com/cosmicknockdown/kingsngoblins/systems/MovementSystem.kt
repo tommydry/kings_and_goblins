@@ -39,9 +39,9 @@ class MovementSystem : EntitySystem() {
                     xVelocity > 0 -> StateComponent.MOVE_RIGHT
                     xVelocity < 0 -> StateComponent.MOVE_LEFT
                     yVelocity > 0 || yVelocity < 0 -> {
-                        if (state in listOf<Int>(StateComponent.MOVE_RIGHT, StateComponent.RIGHT)) {
+                        if (state in listOf(StateComponent.MOVE_RIGHT, StateComponent.RIGHT)) {
                             StateComponent.MOVE_RIGHT
-                        } else if (state in listOf<Int>(StateComponent.MOVE_LEFT, StateComponent.LEFT)) {
+                        } else if (state in listOf(StateComponent.MOVE_LEFT, StateComponent.LEFT)) {
                             StateComponent.MOVE_LEFT
                         } else {
                             state

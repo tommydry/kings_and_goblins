@@ -3,17 +3,14 @@ package com.cosmicknockdown.kingsngoblins.screens
 import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
@@ -23,8 +20,6 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.scenes.scene2d.ui.Value
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.*
@@ -36,7 +31,6 @@ import com.cosmicknockdown.kingsngoblins.utils.WorldBuilder
 class GameScreen
 (game: KNG) : Screen {
 
-//    private val stage: Stage = Stage(ScreenViewport())
     private var renderer: OrthogonalTiledMapRenderer
     private var map: TiledMap = TmxMapLoader().load(KNG.FIRST_LEVEL_MAP_PATH)
     private var camera: OrthographicCamera = OrthographicCamera()
@@ -126,12 +120,11 @@ class GameScreen
     ): Entity {
         val treasureSpot = map.layers.get(KNG.FIRST_LEVEL_POI_LAYER_NAME).objects.first()
         val treasureBody = worldBuilder.buildTreasure(treasureSpot as RectangleMapObject)
-//        val treasureTexture = game.getTreasureTexture()
-        val playerTexture = game.assetManager.get(KNG.PLAYER_ATLAS_PATH, Texture::class.java)
+        val treasureTexture = game.assetManager.get(KNG.TEMP_ATLAS_PATH, Texture::class.java)
         return Entity().apply {
-            add(TransformComponent(0f, 0f))
+            add(TransformComponent(treasureBody.position.x, treasureBody.position.y))
             add(PositionComponent(treasureBody))
-            add(TextureComponent(TextureRegion(playerTexture, 0, 6, 16, 16)))
+            add(TextureComponent(TextureRegion(treasureTexture, 0, 0, 19, 21)))
         }
     }
 

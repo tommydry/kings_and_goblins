@@ -101,7 +101,6 @@ class KNG : Game() {
         const val WALL_BIT: Short = 1
         const val PLAYER_BIT: Short = 1 shl 1
         const val ENEMY_BIT: Short = 1 shl 2
-        const val STUF_BIT: Short = 1 shl 3
 
         const val PLAYER_ATLAS_PATH = "textures/player/player_atlas_orange.png"
         const val TEMP_ATLAS_PATH = "textures/temp/doss.png"

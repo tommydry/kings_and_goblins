@@ -40,8 +40,8 @@ class WorldBuilder {
         val rectangle = mapObject.rectangle
         correctRectangle(rectangle)
         return createRectangleBody(rectangle, BodyDef.BodyType.StaticBody, Filter().apply {
-            categoryBits = KNG.STUF_BIT
-            maskBits = (KNG.WALL_BIT + KNG.ENEMY_BIT + KNG.PLAYER_BIT).toShort()
+            categoryBits = KNG.WALL_BIT
+            maskBits = (KNG.PLAYER_BIT + KNG.ENEMY_BIT).toShort()
         })
     }
 

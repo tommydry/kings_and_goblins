@@ -35,6 +35,8 @@ class RenderSystem(private val batch: SpriteBatch) :
                 transform2.zIndex - transform1.zIndex
             }
 
+            println(renderArray.size)
+
             batch.begin()
 
             renderArray.forEach { entity ->

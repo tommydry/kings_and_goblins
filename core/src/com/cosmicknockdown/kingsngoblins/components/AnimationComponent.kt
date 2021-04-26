@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.utils.IntMap
 
-class AnimationComponent(val animations: IntMap<Animation<TextureRegion>>) : Component {
+class AnimationComponent(private val animations: IntMap<Animation<TextureRegion>>) : Component {
     var startTime = 0f
 
     fun getKeyFrame(state: Int): TextureRegion {
